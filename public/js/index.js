@@ -1,5 +1,21 @@
  var socket = io();
 
+function scrollToButtom() {
+    //Selectors
+    var messages = jQuery('#messages');
+    var newMessage = messages.children('li:last-child');
+    //heights 
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var scrollHeight = messages.prop('scrollHeight');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessage = newMessage.prev().innerHeight();
+    if (clientHeight + scrollTop + newMessageHeight + lastMessage >= scrollHeight) {
+        messages.scrollTop(scrollHeight); 
+    };
+};
+
+
  socket.on('connect', function () {
      console.log('Connected to the Server');
  });
@@ -17,6 +33,7 @@ socket.on('newMessage', function (message) {
         createdAt: formattedTime
     });
     jQuery('#messages').append(html);
+    scrollToButtom();
 });
 
 socket.on('newLocationMessage', function (message) {
@@ -29,6 +46,7 @@ socket.on('newLocationMessage', function (message) {
         createdAt: formattedTime
     });
     jQuery('#messages').append(locationHtml);
+    scrollToButtom();
 });
 
 var messageTextBox = jQuery('[name = message]');
@@ -36,7 +54,7 @@ var messageTextBox = jQuery('[name = message]');
 jQuery('#message-form').on('submit', function (e) {
     e.preventDefault();
 
-    socket.emit('createMessage',   {
+    socket.emit('createMessage', {
         from:'User',
         text: messageTextBox.val()
     }, function () {
@@ -45,7 +63,7 @@ jQuery('#message-form').on('submit', function (e) {
 });
 
 var locationButton = jQuery('#send-location');
-locationButton.on('click',function (){
+locationButton.on('click',function () {
     if(!navigator.geolocation){
         return alert('GeoLocation not supported by your browser.');
     }
