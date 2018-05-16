@@ -35,7 +35,6 @@ button {
     cursor: pointer;
     transition: background .3s ease
 }
-
 button:hover {
     background: #1F4C69
 }
@@ -189,4 +188,7 @@ button:disabled {
     .chat__footer button {
         margin-right: 0
     }
+}
+#txt {
+    text-transform: lowercase;
 }

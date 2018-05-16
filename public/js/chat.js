@@ -17,9 +17,9 @@ function scrollToButtom() {
 
 
  socket.on('connect', function () {
-     var params = jQuery.deparam(window.location.search);
+    var params = jQuery.deparam(window.location.search);
 
-     socket.emit('join',params, function (err) {
+    socket.emit('join',params, function (err) {
         if  (err) {
             alert(err);
             window.location.href = '/';
@@ -75,7 +75,6 @@ jQuery('#message-form').on('submit', function (e) {
     e.preventDefault();
 
     socket.emit('createMessage', {
-        from:'User',
         text: messageTextBox.val()
     }, function () {
          messageTextBox.val('');
@@ -101,3 +100,7 @@ locationButton.on('click',function () {
         
     });
 });
+
+function forceLower(strInput) {
+    strInput.value = strInput.value.toLowerCase();
+}
