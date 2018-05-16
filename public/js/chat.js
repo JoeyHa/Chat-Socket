@@ -10,7 +10,7 @@ function scrollToButtom() {
     var scrollHeight = messages.prop('scrollHeight');
     var newMessageHeight = newMessage.innerHeight();
     var lastMessage = newMessage.prev().innerHeight();
-    if (clientHeight + scrollTop + newMessageHeight + lastMessage >= scrollHeight) {
+    if (clientHeight + scrollTop + newMessageHeight + lastMessage >= scrollHeight ) {
         messages.scrollTop(scrollHeight); 
     };
 };
